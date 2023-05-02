@@ -1,3 +1,7 @@
+"""
+    Original Author:Fabio Carrara
+    Original Repo: https://github.com/fabiocarrara/visual-sentiment-analysis
+"""
 import os, sys
 import argparse
 import numpy as np

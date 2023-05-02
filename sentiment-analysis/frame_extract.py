@@ -1,3 +1,6 @@
+"""
+    Authors: Jess Bunnag, Tiffany Lin, Anna Zuo
+"""
 import cv2
 import os
 import sys

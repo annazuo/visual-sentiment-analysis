@@ -1,11 +1,11 @@
 # Sentiment Analysis on GAN Generated Videos
 
-This repository includes an implementation of a sentiment analysis on GAN generated videos. The implementation takes inspiration from both Matt Siegelman's (2019) "Deep Music Visualizer" [repo](https://github.com/msieg/deep-music-visualizer/blob/master/README.md) and Fabio Carrara's "Visual Sentiment Analysis" [repo](https://github.com/fabiocarrara/visual-sentiment-analysis). 
+This repository includes an implementation of a sentiment analysis on GAN generated videos. The implementation takes inspiration from both Matt Siegelman's (2019) "Deep Music Visualizer" [repo](https://github.com/msieg/deep-music-visualizer) and Fabio Carrara's "Visual Sentiment Analysis" [repo](https://github.com/fabiocarrara/visual-sentiment-analysis). 
 
 ## Usage 
 To run this project, first you will have to generate a video from input audio, then run the sentiment analysis to get the sentiment of the generated video. 
 
-0. Install requirements in `music-visualizer/requirements.txt`, and install PyTorch. 
+0. Install requirements in `music-visualizer/requirements.txt` (with Python 3.6), and install PyTorch. 
 
 ### Music video generation 
 1. ```cd music-visualizer```

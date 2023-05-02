@@ -1,3 +1,8 @@
+"""
+    Original Author: Matt Siegelman
+    Original Repo: https://github.com/msieg/deep-music-visualizer 
+    Modified by: Jess Bunnag, Tiffany Lin, Anna Zuo
+"""
 import librosa
 import argparse
 import numpy as np
@@ -96,7 +101,6 @@ if args.duration:
 else:
     frame_lim=int(np.floor(len(y)/sr*22050/frame_length/batch_size))
 
-
 # Load pre-trained model
 model = BigGAN.from_pretrained(model_name)
 
@@ -134,7 +138,6 @@ chroma = librosa.feature.chroma_cqt(y=y, sr=sr, hop_length=frame_length)
 
 #sort pitches by overall power 
 chromasort=np.argsort(np.mean(chroma,axis=1))[::-1]
-
 
 
 ########################################

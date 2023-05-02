@@ -1,3 +1,6 @@
+"""
+    Authors: Jess Bunnag, Tiffany Lin, Anna Zuo
+"""
 import torch
 import pandas as pd
 import sys
