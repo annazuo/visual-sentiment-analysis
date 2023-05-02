@@ -19,14 +19,20 @@ To run this project, first you will have to generate a video from input audio, t
 This module will ensure the videos are generated to the correct path for the sentiment analysis module.
 
 ### Sentiment analysis
-Once we have generated videos, we will perform sentiment analysis on the video by performing iamge sentiment analysis from all the frames in the video.
+Once we have generated videos, we will perform sentiment analysis on the video by performing image sentiment analysis from all the frames in the video.
 
 3. ```cd sentiment-analysis```
-4. ```python frame_extract.py calm 220,25```
-    This command extracts the frames from the video. The first positional command line argument specifies the mood (`calm`) and the second argument will be 2 parameter settings, separated by a comma.
+4. Download the pretrained models:
+    ```./download_models.sh```
+5. Extract the frames from the video using `frame_extract.py`. For example, 
+    ```python frame_extract.py calm 220,25```
+    The first positional command line argument specifies the mood (`calm`) and the second argument will be 2 parameter settings, separated by a comma.
 
-5. ```python predict.py calm_220_25.txt --model vgg19_finetuned_all --batch-size 64 > calm_220_25.csv```
-    This command runs the sentiment analysis prediction of the extracted frames from a video. The input `.txt` file generated from 4. should contain the paths to extracted frames. User must specify an output CSV file name. The naming convention for both files is `{mood}_{pitch_sensitivity}_{tempo_sensitivity}`
+6. Run sentiment analysis prediction of the extracted frames using `predict.py`. For example,
+    ```python predict.py calm_220_25.txt --model vgg19_finetuned_all --batch-size 64 > calm_220_25.csv```
+   The input `.txt` file generated from 4. should contain the paths to extracted frames. User must specify an output CSV file name. The naming convention for both files is `{mood}_{pitch_sensitivity}_{tempo_sensitivity}`.
+   Note that this step should be run on GPU. 
 
-6. ```python parse_predictions.py calm_220_25.csv```
-    This command outputs the final sentiment prediction of the video. The possible predictions are 'Negative', 'Neutral' and 'Positive'.
+7. Run sentiment analysis prediction of the video using `parse_predictions.py` For example,  
+    ```python parse_predictions.py calm_220_25.csv```
+   The possible predictions are 'Negative', 'Neutral' and 'Positive'.
