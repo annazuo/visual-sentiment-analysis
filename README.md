@@ -1,62 +1,32 @@
-<<<<<<< HEAD
-# Cross-Media Learning for Image Sentiment Analysis in the Wild
+# Sentiment Analysis on GAN Generated Videos
 
-This repo contains the PyTorch-converted models for visual sentiment analysis trained on the
-[T4SA](http://t4sa.it) (Twitter for Sentiment Analysis) dataset presented in \[1\].
+This repository includes an implementation of a sentiment analysis on GAN generated videos. The implementation takes inspiration from both Matt Siegelman's (2019) "Deep Music Visualizer" [repo](https://github.com/msieg/deep-music-visualizer/blob/master/README.md) and Fabio Carrara's "Visual Sentiment Analysis" [repo](https://github.com/fabiocarrara/visual-sentiment-analysis). 
 
-    [1] Vadicamo, L., Carrara, F., Cimino, A., Cresci, S., Dell'Orletta, F., Falchi, F. and Tesconi, M., 2017.
-        Cross-media learning for image sentiment analysis in the wild.
-        In Proceedings of the IEEE International Conference on Computer Vision Workshops (pp. 308-317).
+## Usage 
+To run this project, first you will have to generate a video from input audio, then run the sentiment analysis to get the sentiment of the generated video. 
 
-## Usage
+0. Install requirements in `music-visualizer/requirements.txt`, and install PyTorch. 
 
-0. Install Requirements: [PyTorch](https://pytorch.org/get-started/)
+### Music video generation 
+1. ```cd music-visualizer```
+2. ```python visualize.py --resolution 128 --duration 60 --song song_name.mp3 --pitch_sensitivity 220 --tempo_sensitivity 0.25 --mood mood```
+    Note here that we are limiting our settings to resolution = 128 and duration to 1 minute. The pitch sensitivity and the tempo sensitivity are the two parameters we are experimenting with. The audio file name and the mood should also be specified. 
 
-1. Download the pretrained models:
-   ```sh
-   ./download_models.sh
-   ```
+    For example, to generate a video for `calm.mp3`, with `pitch_sensitivity = 220` and `tempo_sensitivity = 0.25`, you can run:
 
-2. Use the `predict.py` script to make predictions on images. Example:
-   ```sh
-   python predict.py images_list.txt --model vgg19_finetuned_all --batch-size 64 > predictions.csv
-   ```
-   The output file contains three columns representing the probability of each image belonging respectively to the *negative*, *neutral*, and *positive* classes in this order.
+    ```python visualize.py --resolution 128 --duration 60 --song calm.mp3 --pitch_sensitivity 220 --tempo_sensitivity 0.25 --mood calm```
 
-## Converting the original Caffe models
+This module will ensure the videos are generated to the correct path for the sentiment analysis module.
 
-We adopted [MMdnn](https://github.com/microsoft/MMdnn) to convert caffe models to PyTorch.
-We recommend using the pre-built Docker image:
-```
-docker pull mmdnn/mmdnn:cpu.small
-```
+### Sentiment analysis
+Once we have generated videos, we will perform sentiment analysis on the video by performing iamge sentiment analysis from all the frames in the video.
 
-First, download the original models available at http://t4sa.it and extract them following this
-folder structure:
-```
-original-models/
-├── hybrid_finetuned_all/
-│   ├── deploy.prototxt
-│   ├── mean.binaryproto
-│   ├── snapshot_iter_34560.caffemodel
-│   └── ...
-├── hybrid_finetuned_fc6+/
-│   ├── <same as above>
-│   └── ...
-├── vgg19_finetuned_all/
-│   ├── <same as above>
-│   └── ...
-└── vgg19_finetuned_fc6+/
-    ├── <same as above>
-    └── ...
-```
+3. ```cd sentiment-analysis```
+4. ```python frame_extract.py calm 220,25```
+    This command extracts the frames from the video. The first positional command line argument specifies the mood (`calm`) and the second argument will be 2 parameter settings, separated by a comma.
 
-Then, run `convert_models.sh`:
+5. ```python predict.py calm_220_25.txt --model vgg19_finetuned_all --batch-size 64 > calm_220_25.csv```
+    This command runs the sentiment analysis prediction of the extracted frames from a video. The input `.txt` file generated from 4. should contain the paths to extracted frames. User must specify an output CSV file name. The naming convention for both files is `{mood}_{pitch_sensitivity}_{tempo_sensitivity}`
 
-```sh
-docker run --rm -it -v $(pwd):/workspace -w /workspace mmdnn/mmdnn:cpu.small bash ./convert_models.sh
-```
-=======
-# visual-sentiment-analysis
-DL4M Final Project
->>>>>>> origin/main
+6. ```python parse_predictions.py calm_220_25.csv```
+    This command outputs the final sentiment prediction of the video. The possible predictions are 'Negative', 'Neutral' and 'Positive'.
