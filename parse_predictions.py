@@ -24,7 +24,7 @@ def main(file_name):
 
 if __name__ == '__main__':
 
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 2:
         print('Usage: python parse_predictions.py pred.csv')
     else:
         file_name = sys.argv[1]
