@@ -35,7 +35,7 @@ Once we have generated videos, we will perform sentiment analysis on the video b
     ```python predict.py calm_220_25.txt --model vgg19_finetuned_all --batch-size 64 > calm_220_25.csv```
     
    The input `.txt` file generated from 4. should contain the paths to extracted frames. User must specify an output CSV file name. The naming convention for both files is `{mood}_{pitch_sensitivity}_{tempo_sensitivity}`.
-   Note that this step should be run on GPU. This can be achieved by running all command lines on Google Colab.
+   Note that this step should be run on GPU. This can be achieved by running all command lines on Google Colab. An example of how to run the whole pipeline on GPU is in `project_pipeline.ipynb`
 
 7. Run sentiment analysis prediction of the video using `parse_predictions.py` For example,  
 
