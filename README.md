@@ -17,6 +17,7 @@ To run this project, first you will have to generate a video from input audio, t
     ```python visualize.py --resolution 128 --duration 60 --song calm.mp3 --pitch_sensitivity 220 --tempo_sensitivity 0.25 --mood calm```
 
 This module will ensure the videos are generated to the correct path for the sentiment analysis module.
+**Note**: This part has to be run with Python 3.6 or lower, so we executed it on local instead of on Google Colab.
 
 ### Sentiment analysis
 Once we have generated videos, we will perform sentiment analysis on the video by performing image sentiment analysis from all the frames in the video.
@@ -42,3 +43,5 @@ Once we have generated videos, we will perform sentiment analysis on the video b
     ```python parse_predictions.py calm_220_25.csv```
     
    The possible predictions are 'Negative', 'Neutral' and 'Positive'.
+
+**Note**: This part has to be run on GPU, so we used the results from part 1 and executed the code on Google Colab.
