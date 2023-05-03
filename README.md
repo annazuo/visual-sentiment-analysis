@@ -25,14 +25,20 @@ Once we have generated videos, we will perform sentiment analysis on the video b
 4. Download the pretrained models:
     ```./download_models.sh```
 5. Extract the frames from the video using `frame_extract.py`. For example, 
+
     ```python frame_extract.py calm 220,25```
+    
     The first positional command line argument specifies the mood (`calm`) and the second argument will be 2 parameter settings, separated by a comma.
 
 6. Run sentiment analysis prediction of the extracted frames using `predict.py`. For example,
+
     ```python predict.py calm_220_25.txt --model vgg19_finetuned_all --batch-size 64 > calm_220_25.csv```
+    
    The input `.txt` file generated from 4. should contain the paths to extracted frames. User must specify an output CSV file name. The naming convention for both files is `{mood}_{pitch_sensitivity}_{tempo_sensitivity}`.
    Note that this step should be run on GPU. This can be achieved by running all command lines on Google Colab.
 
 7. Run sentiment analysis prediction of the video using `parse_predictions.py` For example,  
+
     ```python parse_predictions.py calm_220_25.csv```
+    
    The possible predictions are 'Negative', 'Neutral' and 'Positive'.
